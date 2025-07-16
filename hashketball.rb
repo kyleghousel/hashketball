@@ -133,3 +133,7 @@ end
 def num_points_scored(name)
   get_all_players(game_hash).find { |player| player[:player_name] == name }[:points]
 end
+
+def shoe_size(name)
+  get_all_players(game_hash).find { |player| player[:player_name] == name }[:shoe]
+end
