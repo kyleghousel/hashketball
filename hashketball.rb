@@ -126,14 +126,22 @@ def game_hash
   }
 end
 
-def get_all_players(hash)
+def all_players(hash)
   hash[:home][:players] + hash[:away][:players]
 end
 
+def all_teams(hash)
+  [hash[:home], hash[:away]]
+end
+
 def num_points_scored(name)
-  get_all_players(game_hash).find { |player| player[:player_name] == name }[:points]
+  all_players(game_hash).find { |player| player[:player_name] == name }[:points]
 end
 
 def shoe_size(name)
-  get_all_players(game_hash).find { |player| player[:player_name] == name }[:shoe]
+  all_players(game_hash).find { |player| player[:player_name] == name }[:shoe]
+end
+
+def team_colors(team_name)
+  all_teams(game_hash).find { |team| team[:team_name] == team_name }[:colors]
 end
