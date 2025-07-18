@@ -126,20 +126,24 @@ def game_hash
   }
 end
 
-def all_players(hash)
-  hash[:home][:players] + hash[:away][:players]
-end
-
-def all_teams(hash)
-  [hash[:home], hash[:away]]
-end
-
 def num_points_scored(name)
   all_players(game_hash).find { |player| player[:player_name] == name }[:points]
 end
 
 def shoe_size(name)
   all_players(game_hash).find { |player| player[:player_name] == name }[:shoe]
+end
+
+def player_stats(player_name)
+  all_players(game_hash).find { |player| player[:player_name] == player_name }
+end
+
+def big_shoe_rebounds
+  all_players(game_hash).max_by { |player| player[:shoe] }[:rebounds]
+end
+
+def all_players(hash)
+  hash[:home][:players] + hash[:away][:players]
 end
 
 def team_colors(team_name)
@@ -151,14 +155,10 @@ def team_names
 end
 
 def player_numbers(team_name)
-  team = all_teams(game_hash).find { |t| t[:team_name] == team_name }
+  team = all_teams(game_hash).find { |team| team[:team_name] == team_name }
   team[:players].map { |player| player[:number] }
 end
 
-def player_stats(player_name)
-  all_players(game_hash).find { |player| player[:player_name] == player_name }
-end
-
-def big_shoe_rebounds
-  all_players(game_hash).max_by { |player| player[:shoe] }[:rebounds]
+def all_teams(hash)
+  [hash[:home], hash[:away]]
 end
